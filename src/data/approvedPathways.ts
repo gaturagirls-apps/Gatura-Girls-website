@@ -5,6 +5,7 @@ export interface PathwayMeta {
   shortName: string;
   tagline: string;
   description: string;
+  mathematics: string;
   color: string;
   accentBg: string;
   borderColor: string;
@@ -18,43 +19,35 @@ export const PATHWAY_METADATA: Record<PathwayName, PathwayMeta> = {
     shortName: 'STEM',
     tagline: 'Sciences, Computing & Engineering',
     description: 'Empowering future doctors, engineers, data scientists, and agricultural innovators through rigorous pure and applied scientific investigation.',
+    mathematics: 'Advanced Mathematics',
     color: '#059669', // emerald-600
     accentBg: 'bg-emerald-500/10 dark:bg-emerald-500/15',
     borderColor: 'border-emerald-500/30 dark:border-emerald-500/40',
     badgeBg: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
     tracks: ['ALL TRACKS', 'PURE SCIENCES', 'APPLIED SCIENCES'],
   },
-  'ARTS & SPORTS SCIENCE': {
-    id: 'ARTS & SPORTS SCIENCE',
-    shortName: 'Arts & Sports',
-    tagline: 'Performance, Physical Health & Recreation',
-    description: 'Nurturing champion athletes, sports science practitioners, bilingual communicators, and creative performing arts leaders.',
-    color: '#ea580c', // orange-600
-    accentBg: 'bg-orange-500/10 dark:bg-orange-500/15',
-    borderColor: 'border-orange-500/30 dark:border-orange-500/40',
-    badgeBg: 'bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300',
-    tracks: ['ALL TRACKS', 'SPORTS'],
-  },
   'SOCIAL SCIENCES': {
     id: 'SOCIAL SCIENCES',
     shortName: 'Social Sciences',
     tagline: 'Humanities, Languages & Commercial Leadership',
     description: 'Preparing articulate leaders, legal scholars, business strategists, economists, diplomats, and communicators with global perspective.',
+    mathematics: 'Essential Mathematics',
     color: '#2563eb', // blue-600
     accentBg: 'bg-blue-500/10 dark:bg-blue-500/15',
     borderColor: 'border-blue-500/30 dark:border-blue-500/40',
-    badgeBg: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300',
+    badgeBg: 'bg-blue-100 text-blue-800 dark:bg-blue-500/15 dark:text-blue-300',
     tracks: ['ALL TRACKS', 'HUMANITIES & BUSINESS STUDIES', 'LANGUAGES & LITERATURE'],
   },
 };
 
+// Compulsory for every learner. Mathematics is taken at the level of the chosen pathway.
 export const CORE_FOUNDATION_SUBJECTS = [
-  { code: 'CORE-1', name: 'Mathematics (Core/Advanced)', category: 'Compulsory' },
-  { code: 'CORE-2', name: 'English Language', category: 'Compulsory' },
+  { code: 'CORE-1', name: 'Mathematics', category: 'Compulsory' },
+  { code: 'CORE-2', name: 'English', category: 'Compulsory' },
   { code: 'CORE-3', name: 'Kiswahili', category: 'Compulsory' },
-  { code: 'CORE-4', name: 'Physical Education (PE)', category: 'Compulsory' },
-  { code: 'CORE-5', name: 'Community Service Learning (CSL)', category: 'Compulsory' },
-  { code: 'CORE-6', name: 'ICT / Digital Literacy', category: 'Compulsory' },
+  { code: 'CORE-4', name: 'Community Service Learning (CSL)', category: 'Compulsory' },
+  { code: 'CORE-5', name: 'ICT', category: 'Compulsory' },
+  { code: 'CORE-6', name: 'Physical Education (PE)', category: 'Compulsory' },
 ];
 
 export const APPROVED_COMBINATIONS: ApprovedCombination[] = [
@@ -268,26 +261,6 @@ export const APPROVED_COMBINATIONS: ApprovedCombination[] = [
     code: 'ST2049',
     status: 'Approved',
     recommendedCareers: 'Agri-Enterprise Management, Rural Development, Farm Produce Marketing, Extension Services'
-  },
-
-  // =========================================================================
-  // Arts & Sports Science Combinations (2 Approved Combinations)
-  // =========================================================================
-  {
-    pathway: 'ARTS & SPORTS SCIENCE',
-    track: 'SPORTS',
-    subjects: ['French', 'Sports & Recreation', 'Theatre & Film'],
-    code: 'AS2034',
-    status: 'Approved',
-    recommendedCareers: 'International Sports Diplomacy, Sports Journalism, Arts & Recreation Management, Film Production'
-  },
-  {
-    pathway: 'ARTS & SPORTS SCIENCE',
-    track: 'SPORTS',
-    subjects: ['General Science', 'Sports & Recreation', 'Theatre & Film'],
-    code: 'AS2038',
-    status: 'Approved',
-    recommendedCareers: 'Sports Science & Kinesiology, Athletic Training, Performing Arts, Media & Entertainment'
   },
 
   // =========================================================================

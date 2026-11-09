@@ -119,7 +119,7 @@ export interface WeatherData {
   weatherCode?: number;
 }
 
-export type PathwayName = 'STEM' | 'ARTS & SPORTS SCIENCE' | 'SOCIAL SCIENCES';
+export type PathwayName = 'STEM' | 'SOCIAL SCIENCES';
 
 export interface ApprovedCombination {
   pathway: PathwayName;

@@ -1,69 +1,121 @@
-import React from 'react';
-import { Users, Award, BookOpenCheck, ShieldCheck, MapPin, Sparkles } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Users, Award, BookOpenCheck, Sparkles } from 'lucide-react';
 import { APPROVED_COMBINATIONS } from '../data/approvedPathways';
 
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Animates the first number found in `value` (e.g. "850+", "56 Approved") once `start` is true
+const CountUp: React.FC<{ value: string; start: boolean }> = ({ value, start }) => {
+  const match = value.match(/\d+/);
+  const target = match ? parseInt(match[0], 10) : 0;
+  const prefix = match ? value.slice(0, match.index) : '';
+  const suffix = match ? value.slice((match.index ?? 0) + match[0].length) : value;
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!start || !match) return;
+    if (prefersReducedMotion()) {
+      setCurrent(target);
+      return;
+    }
+
+    const duration = 1600;
+    const began = performance.now();
+    let frame = 0;
+
+    const tick = (now: number) => {
+      const t = Math.min((now - began) / duration, 1);
+      setCurrent(Math.round(target * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [start, target]);
+
+  if (!match) return <>{value}</>;
+
+  return (
+    <>
+      {prefix}
+      {start ? current : 0}
+      {suffix}
+    </>
+  );
+};
+
 export const QuickStats: React.FC = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (!('IntersectionObserver' in window)) {
+      setVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const stats = [
     {
       label: 'Enrolled Students',
       value: '850+',
       description: 'Bright young girls across approved CBC Senior Pathways',
-      icon: Users,
-      color: 'from-emerald-500 to-teal-500'
+      icon: Users
     },
     {
       label: 'University/College Transition',
       value: '100%',
       description: 'Graduates joining top public & global universities',
-      icon: Award,
-      color: 'from-teal-500 to-cyan-500'
+      icon: Award
     },
     {
       label: 'Approved CBC Combinations',
       value: `${APPROVED_COMBINATIONS.length} Approved`,
-      description: 'Across STEM, Social Sciences & Sports tracks',
-      icon: BookOpenCheck,
-      color: 'from-emerald-600 to-emerald-400'
+      description: 'Across the STEM & Social Sciences pathways',
+      icon: BookOpenCheck
     },
     {
       label: 'Co-Curricular Clubs',
       value: '25+',
       description: 'Drama, Music, Sports & Journalism',
-      icon: Sparkles,
-      color: 'from-cyan-500 to-blue-500'
+      icon: Sparkles
     }
   ];
 
   return (
-    <section className="py-12 bg-[#FAF7F2] dark:bg-[#080D0B] border-y border-[#E5DFD2] dark:border-[#1E2A24] transition-colors">
+    <section className="relative z-20 -mt-24 sm:-mt-28 pb-14" aria-label="School at a glance">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, idx) => {
+        <div ref={ref} className="stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div 
-                key={idx}
-                className="relative p-6 rounded-2xl bg-white dark:bg-[#0F1811] border border-[#E5DFD2] dark:border-[#1E2A24] shadow-sm dark:shadow-none backdrop-blur-md hover:border-emerald-500/40 hover:scale-[1.02] transition-all group"
+              <div
+                key={stat.label}
+                className="stat-card card-lift relative overflow-hidden rounded-2xl border border-[#e5dfd2] bg-white p-6 shadow-xl shadow-forest-900/10 dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/30"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} text-white flex items-center justify-center shadow-md shadow-emerald-500/20 group-hover:scale-110 transition-transform`}>
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full">
-                    Gatura Girls
-                  </span>
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-forest-600 to-forest-800 text-gold-300 shadow-lg shadow-forest-800/30 ring-2 ring-gold-300/50">
+                  <Icon className="w-5 h-5" />
                 </div>
-                <div className="space-y-1">
-                  <h3 className="text-3xl font-black text-[#161311] dark:text-[#F3F0E9] tracking-tight">
-                    {stat.value}
-                  </h3>
-                  <p className="text-sm font-semibold text-[#161311] dark:text-[#F3F0E9]">
-                    {stat.label}
-                  </p>
-                  <p className="text-xs text-[#5B5346] dark:text-[#A8A196] leading-relaxed">
-                    {stat.description}
-                  </p>
-                </div>
+                <p className="font-display text-4xl font-semibold tracking-tight text-forest-800 tabular-nums dark:text-[#f6f2ea]">
+                  <CountUp value={stat.value} start={visible} />
+                </p>
+                <p className="mt-2 text-sm font-semibold text-[#14120f] dark:text-[#f3f0e9]">{stat.label}</p>
+                <p className="mt-1 text-xs leading-relaxed text-[#5b5346] dark:text-[#a8a196]">
+                  {stat.description}
+                </p>
               </div>
             );
           })}

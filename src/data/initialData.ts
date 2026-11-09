@@ -21,7 +21,7 @@ export const INITIAL_FAQS: FAQItem[] = [
   {
     id: 'f2',
     question: 'What academic curriculum and approved CBC senior pathways are offered?',
-    answer: 'St. Teresa Gatura Girls is a dedicated Senior Secondary School offering the approved Competency-Based Curriculum (CBC) for Grade 10–12. The school is officially approved by the Ministry of Education & KICD for all 3 senior pathways with 56 approved combinations: STEM (Pure & Applied Sciences — 26 combinations), Social Sciences (Humanities & Business Studies, Languages & Literature — 28 combinations), and Arts & Sports Science (Sports track — 2 combinations).',
+    answer: 'St. Teresa Gatura Girls is a dedicated Senior Secondary School offering the approved Competency-Based Curriculum (CBC) for Grade 10–12. The school is officially approved by the Ministry of Education & KICD for both senior pathways with 54 approved combinations: STEM (Pure & Applied Sciences — 26 combinations, taking Advanced Mathematics) and Social Sciences (Humanities & Business Studies, Languages & Literature — 28 combinations, taking Essential Mathematics). Every learner also takes the compulsory core subjects: Mathematics, English, Kiswahili, Community Service Learning (CSL), ICT and Physical Education (PE), then chooses 3 pathway subjects.',
     category: 'Academics',
     order: 2
   },

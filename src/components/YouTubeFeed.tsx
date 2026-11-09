@@ -48,7 +48,7 @@ export const YouTubeFeed: React.FC = () => {
   const activeIndex = YOUTUBE_VIDEOS.findIndex((v) => v.id === activeVideo.id);
 
   return (
-    <section className="relative py-24 bg-[#FAF7F2] dark:bg-[#0A0D14] text-[#161311] dark:text-[#F3F0E9] transition-colors overflow-hidden">
+    <section className="relative py-24 bg-[#FAF7F2] dark:bg-[#07100B] text-[#161311] dark:text-[#F3F0E9] transition-colors overflow-hidden">
       {/* faint tuning-dial texture */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.4] dark:opacity-[0.15]"
@@ -61,7 +61,7 @@ export const YouTubeFeed: React.FC = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Masthead */}
-        <div className="flex flex-col gap-6 border-b border-[#D8D0C2] dark:border-[#232839] pb-8 mb-10">
+        <div className="flex flex-col gap-6 border-b border-[#D8D0C2] dark:border-[#1E2A24] pb-8 mb-10">
           <div className="flex items-center justify-between gap-4 flex-wrap">
             <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#8A6D3B] dark:text-[#D4A24C]">
               <span className="relative flex h-2 w-2">
@@ -98,7 +98,7 @@ export const YouTubeFeed: React.FC = () => {
         {/* Channel strip */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-10 text-xs">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#161311] dark:bg-[#F3F0E9] text-[#FAF7F2] dark:text-[#0A0D14] flex items-center justify-center font-black text-sm shrink-0">
+            <div className="w-10 h-10 rounded-full bg-[#161311] dark:bg-[#F3F0E9] text-[#FAF7F2] dark:text-[#07100B] flex items-center justify-center font-black text-sm shrink-0">
               ST
             </div>
             <div className="leading-tight">
@@ -120,7 +120,7 @@ export const YouTubeFeed: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Player */}
           <div className="lg:col-span-7 space-y-5">
-            <div className="relative rounded-sm overflow-hidden bg-black border border-[#D8D0C2] dark:border-[#232839] shadow-[6px_6px_0_0_#161311] dark:shadow-[6px_6px_0_0_#D4A24C] aspect-video">
+            <div className="relative rounded-sm overflow-hidden bg-black border border-[#D8D0C2] dark:border-[#1E2A24] shadow-[6px_6px_0_0_#161311] dark:shadow-[6px_6px_0_0_#D4A24C] aspect-video">
               <iframe
                 className="w-full h-full"
                 src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=0&rel=0`}
@@ -134,7 +134,7 @@ export const YouTubeFeed: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-start justify-between gap-4 border-t border-[#D8D0C2] dark:border-[#232839] pt-4">
+            <div className="flex items-start justify-between gap-4 border-t border-[#D8D0C2] dark:border-[#1E2A24] pt-4">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-600 dark:text-red-500 mb-1.5">
                   {activeVideo.category}
@@ -157,14 +157,14 @@ export const YouTubeFeed: React.FC = () => {
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#8A6D3B] dark:text-[#A8A196] mb-3 pl-1">
               Channel Guide
             </p>
-            <div className="border-t border-[#D8D0C2] dark:border-[#232839]">
+            <div className="border-t border-[#D8D0C2] dark:border-[#1E2A24]">
               {YOUTUBE_VIDEOS.map((video, i) => {
                 const isSelected = activeVideo.id === video.id;
                 return (
                   <button
                     key={video.id}
                     onClick={() => setActiveVideo(video)}
-                    className={`group w-full flex items-center gap-4 py-4 border-b border-[#D8D0C2] dark:border-[#232839] text-left transition-colors ${
+                    className={`group w-full flex items-center gap-4 py-4 border-b border-[#D8D0C2] dark:border-[#1E2A24] text-left transition-colors ${
                       isSelected ? '' : 'hover:bg-[#F0EBE0] dark:hover:bg-[#131826]'
                     }`}
                   >

@@ -7,6 +7,7 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { BannerSlider } from './components/BannerSlider';
 import { QuickStats } from './components/QuickStats';
+import { ValuesMarquee } from './components/ValuesMarquee';
 import { Leadership } from './components/Leadership';
 import { FAQAccordion } from './components/FAQAccordion';
 import { WeatherLocation } from './components/WeatherLocation';
@@ -58,13 +59,43 @@ export default function App() {
     }
   }, [darkMode]);
 
+  useEffect(() => {
+    // The hero animates itself; everything else reveals as it nears the viewport.
+    const sections = document.querySelectorAll<HTMLElement>('main > *:not(#hero)');
+
+    if (!('IntersectionObserver' in window)) {
+      sections.forEach((section) => section.classList.add('is-visible'));
+      return;
+    }
+
+    // threshold 0: very tall sections (e.g. About) must still reveal on short screens
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0, rootMargin: '0px 0px -12% 0px' }
+    );
+
+    sections.forEach((section) => {
+      section.classList.add('reveal-on-scroll');
+      observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const handleExplorePrograms = () => {
     const elem = document.getElementById('about');
     if (elem) elem.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] dark:bg-[#080D0B] text-[#161311] dark:text-[#F3F0E9] transition-colors font-sans selection:bg-emerald-500 selection:text-black">
+    <div className="min-h-screen bg-[#FAF7F2] dark:bg-slate-950 text-[#14120F] dark:text-[#F3F0E9] transition-colors font-sans selection:bg-gold-400/40">
       
       {offlineWarning && (
         <div className="fixed top-0 left-0 right-0 z-[100] bg-amber-500 text-amber-950 px-4 py-2 text-center text-sm font-semibold shadow-md">
@@ -89,39 +120,42 @@ export default function App() {
           onExplorePrograms={handleExplorePrograms}
         />
 
-        {/* 2. Rotating Announcement Banners */}
+        {/* 2. Quick Stats floating over the hero edge */}
+        <QuickStats />
+
+        {/* 3. Rotating Announcement Banners */}
         <BannerSlider
           banners={banners}
         />
 
-        {/* 3. Quick Stats & Highlights Strip */}
-        <QuickStats />
+        {/* 4. School values marquee */}
+        <ValuesMarquee />
 
-        {/* 4. Single Compact School Videos Showcase */}
+        {/* 5. Single Compact School Videos Showcase */}
         <SchoolVideos videos={featuredVideos} />
 
-        {/* 5. Leadership Section */}
+        {/* 6. Leadership Section */}
         <Leadership profiles={leadership} />
 
-        {/* 6. CBC Senior Secondary Pathways & FAQ Accordion */}
+        {/* 7. CBC Senior Secondary Pathways & FAQ Accordion */}
         <FAQAccordion 
           faqs={faqs} 
         />
 
-        {/* 7. Location, Live Google Map, Altitude & Weather Widget */}
+        {/* 8. Location, Live Google Map, Altitude & Weather Widget */}
         <WeatherLocation />
 
-        {/* 8. Campus Photo Gallery */}
+        {/* 9. Campus Photo Gallery */}
         <GalleryGrid gallery={gallery} />
 
-        {/* 9. News & Career Vacancies Noticeboard */}
+        {/* 10. News & Career Vacancies Noticeboard */}
         <NewsJobsSection
           news={news}
           jobs={jobs}
           links={links}
         />
 
-        {/* 10. Contact Us & Instant Form */}
+        {/* 11. Contact Us & Instant Form */}
         <ContactForm />
       </main>
 

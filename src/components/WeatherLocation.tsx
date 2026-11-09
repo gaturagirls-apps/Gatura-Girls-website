@@ -109,10 +109,10 @@ export const WeatherLocation: React.FC = () => {
     let glassBorder = 'border-emerald-500/40 shadow-md';
 
     if (isRaining) {
-      skyBg = 'from-slate-200 via-cyan-100/70 to-slate-100 dark:from-slate-900 dark:via-cyan-950/70 dark:to-slate-950';
+      skyBg = 'from-slate-200 via-cyan-100/70 to-slate-100 dark:from-slate-900 dark:via-cyan-500/10 dark:to-slate-950';
       glassBorder = 'border-cyan-400/50 shadow-[0_0_30px_rgba(34,211,238,0.25)]';
     } else if (isNight) {
-      skyBg = 'from-indigo-100 via-slate-100 to-white dark:from-indigo-950 dark:via-slate-950 dark:to-slate-900';
+      skyBg = 'from-indigo-100 via-slate-100 to-white dark:from-forest-800 dark:via-slate-950 dark:to-slate-900';
       glassBorder = 'border-indigo-400/40 shadow-[0_0_35px_rgba(129,140,248,0.2)]';
     } else if (isSunny) {
       skyBg = 'from-sky-200 via-amber-100 to-white dark:from-sky-500/30 dark:via-amber-500/20 dark:to-slate-900';
@@ -132,7 +132,7 @@ export const WeatherLocation: React.FC = () => {
   }, [weather]);
 
   return (
-    <section id="location" className="py-20 bg-white dark:bg-slate-900 text-slate-900 dark:text-white relative overflow-hidden">
+    <section id="location" className="surface-alt py-24 relative overflow-hidden">
 
       {/* Background Parallax Blur Layer */}
       <div className="absolute top-0 right-1/3 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -142,13 +142,14 @@ export const WeatherLocation: React.FC = () => {
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-slate-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
+          <div className="eyebrow">
             <MapPin className="w-4 h-4" />
             <span>Campus Location & Atmospheric Climate</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Find Us in the Foothills of Aberdare
+          <h2 className="section-title">
+            Find Us in the Foothills of <em>Aberdare</em>
           </h2>
+          <span className="section-rule" aria-hidden="true" />
           <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg font-light">
             Located in Gatura, Murang'a County — offering a cool, crisp, serene mountain atmosphere ideal for focused learning.
           </p>

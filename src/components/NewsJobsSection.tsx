@@ -38,18 +38,18 @@ export const NewsJobsSection: React.FC<NewsJobsSectionProps> = ({ news, jobs, li
   });
 
   return (
-    <section id="news" className="py-20 bg-white dark:bg-slate-900 transition-colors relative">
+    <section id="news" className="surface-base py-24 transition-colors relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="space-y-3">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-slate-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
+            <div className="eyebrow">
               <Newspaper className="w-4 h-4" />
               <span>School Noticeboard & Careers</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              News, Vacancies & Circulars
+            <h2 className="section-title">
+              News, Vacancies & <em>Circulars</em>
             </h2>
             <p className="text-slate-600 dark:text-slate-300 text-base max-w-2xl font-light">
               Stay updated with official school announcements, academic circulars, CBC pathway news, and career opportunities.

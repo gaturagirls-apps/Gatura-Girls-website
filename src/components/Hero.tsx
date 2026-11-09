@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Sparkles,
   ArrowRight,
   Award,
   BookOpen,
@@ -18,10 +17,12 @@ interface HeroProps {
 }
 
 const CREDENTIALS = [
-  { label: 'STEM & Social Sciences Pathways' },
-  { label: '100% Transition Rate' },
-  { label: 'Christian Character & Discipline' }
+  'STEM & Social Sciences Pathways',
+  '100% Transition Rate',
+  'Christian Character & Discipline'
 ];
+
+const SLIDE_MS = 6000;
 
 export const Hero: React.FC<HeroProps> = ({ onExplorePrograms, slides }) => {
   // Respect admin slides: if slides prop is passed, use it (even if empty array). Only fallback to initial if slides prop is undefined.
@@ -38,9 +39,9 @@ export const Hero: React.FC<HeroProps> = ({ onExplorePrograms, slides }) => {
     if (activeSlides.length <= 1) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
-    }, 5000);
+    }, SLIDE_MS);
     return () => clearInterval(timer);
-  }, [activeSlides.length]);
+  }, [activeSlides.length, currentSlide]);
 
   const nextSlide = () => {
     if (activeSlides.length > 0) {
@@ -54,193 +55,172 @@ export const Hero: React.FC<HeroProps> = ({ onExplorePrograms, slides }) => {
     }
   };
 
+  const slide = activeSlides[currentSlide];
+
   return (
     <section
       id="hero"
-      className="relative min-h-[90vh] pt-28 pb-20 flex items-center overflow-hidden bg-[#FAF7F2] dark:bg-[#080D0B] text-[#161311] dark:text-[#F3F0E9]"
+      className="hero-bg relative isolate min-h-[100svh] pt-32 pb-36 sm:pb-40 flex items-center overflow-hidden text-white"
     >
-      {/* Paper grain + faint rule lines, like a prospectus page */}
+      {/* Textures: uniform check + soft golden light */}
+      <div aria-hidden="true" className="gingham pointer-events-none absolute inset-0 -z-10" />
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.5] dark:opacity-[0.12]"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 1px 1px, rgba(90,110,95,0.2) 1px, transparent 0)',
-          backgroundSize: '26px 26px'
-        }}
+        aria-hidden="true"
+        className="hero-orb pointer-events-none absolute -top-32 -right-32 -z-10 h-[34rem] w-[34rem] rounded-full bg-gold-500/10 blur-3xl"
       />
-      <div className="pointer-events-none absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-emerald-500/10 dark:bg-emerald-500/[0.08] blur-3xl" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-10 items-center">
 
-          {/* Left Column — Editorial Text Block */}
+          {/* Left: message */}
           <div className="lg:col-span-7 space-y-8 text-left">
 
-            <div className="flex items-center gap-3">
-              <span className="h-px w-10 bg-emerald-600 dark:bg-emerald-500" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-emerald-700 dark:text-emerald-400">
-                St. Teresa Gatura Girls Senior School — Murang'a County
-              </span>
+            <div className="hero-rise hero-rise-1 inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.24em] text-gold-300">
+              <span className="h-px w-8 bg-gold-400" />
+              <span>Catholic Diocese of Murang'a · Est. 1976</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.6rem] font-black tracking-tight leading-[1.05]">
-              Empowering young
-              <br />
-              women for{' '}
-              <span className="italic font-serif font-medium text-emerald-700 dark:text-emerald-400">
-                global
-              </span>{' '}
-              leadership.
+            <h1 className="hero-rise hero-rise-2 font-display text-[2.6rem] sm:text-6xl lg:text-[4.4rem] font-semibold leading-[1.04] tracking-[-0.025em] text-balance">
+              Empowering young women for{' '}
+              <em className="gold-shimmer gold-shimmer-dark font-medium italic">global</em> leadership.
             </h1>
 
-            <p className="text-base sm:text-lg text-[#5B5346] dark:text-[#A8A196] font-light max-w-xl leading-relaxed">
-              Dedicated Senior Secondary School offering the approved{' '}
-              <strong className="text-[#161311] dark:text-[#F3F0E9] font-semibold">Competency-Based Curriculum (CBC)</strong> Senior
-              Secondary Pathways, Grade 10–12, with state-of-the-art STEM, Humanities, and
+            <p className="hero-rise hero-rise-3 text-base sm:text-lg text-white/75 font-light max-w-xl leading-relaxed">
+              A Senior Secondary School offering the approved{' '}
+              <strong className="text-white font-semibold">Competency-Based Curriculum (CBC)</strong>{' '}
+              Senior Secondary Pathways, Grade 10–12, with state-of-the-art STEM, Humanities, and
               Creative Arts facilities.
             </p>
 
-            {/* Credentials — set like a transcript, not pills */}
-            <div className="border-t border-[#D8D0C2] dark:border-[#1E2A24] divide-y divide-[#D8D0C2] dark:divide-[#1E2A24] max-w-md">
-              {CREDENTIALS.map((c, i) => (
-                <div key={c.label} className="flex items-center gap-4 py-2.5">
-                  <span className="font-mono text-[11px] text-emerald-700 dark:text-emerald-500 tabular-nums w-5 shrink-0">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                  <span className="text-sm text-[#161311] dark:text-[#F3F0E9] font-medium">{c.label}</span>
-                </div>
+            <ul className="hero-rise hero-rise-4 flex flex-col sm:flex-row sm:flex-wrap gap-x-7 gap-y-3">
+              {CREDENTIALS.map((label) => (
+                <li key={label} className="flex items-center gap-2.5 text-sm font-medium text-white/90">
+                  <CheckCircle2 className="w-4 h-4 text-gold-400 shrink-0" />
+                  <span>{label}</span>
+                </li>
               ))}
-            </div>
+            </ul>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
+            <div className="hero-rise hero-rise-5 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
               <button
                 onClick={onExplorePrograms}
-                className="flex items-center justify-center gap-3 px-7 py-4 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-base shadow-lg shadow-emerald-700/20 hover:shadow-xl transition-all"
+                className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gold-500 hover:bg-gold-400 text-forest-950 font-semibold text-base shadow-xl shadow-gold-500/20 transition-all duration-300 hover:-translate-y-0.5"
               >
-                <BookOpen className="w-5 h-5 text-white" />
+                <BookOpen className="w-5 h-5" />
                 <span>Explore CBC Pathways</span>
-                <ArrowRight className="w-5 h-5 text-white" />
+                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </button>
 
               <a
                 href="#contact"
-                className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl border border-[#D8D0C2] dark:border-[#232839] text-[#161311] dark:text-[#F3F0E9] font-semibold text-base hover:border-emerald-600 dark:hover:border-emerald-500 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full border border-white/25 hover:border-gold-400 hover:bg-white/5 text-white font-medium text-base transition-all duration-300"
               >
                 <span>Contact School Administration</span>
               </a>
             </div>
           </div>
 
-          {/* Right Column — Pinned Photograph */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative mx-auto max-w-sm lg:max-w-none pt-6 pb-8">
+          {/* Right: arched photograph */}
+          <div className="hero-arch-in lg:col-span-5 relative">
+            <div className="relative mx-auto w-full max-w-[22rem] sm:max-w-sm lg:max-w-md">
 
-              {/* Photograph card, slightly rotated like a print pinned to a board */}
-              <div className="relative rotate-[-2.5deg] hover:rotate-0 transition-transform duration-500 bg-white dark:bg-[#0F1811] p-3 pb-5 rounded-sm shadow-[0_18px_40px_-12px_rgba(0,0,0,0.25)] border border-[#E5DFD2] dark:border-[#1E2A24] group">
-
-                {/* Tape accent */}
-                <div className="absolute -top-3 left-8 w-16 h-6 bg-emerald-100/80 dark:bg-emerald-500/10 border border-emerald-500/20 rotate-[-4deg] shadow-sm backdrop-blur-sm" />
-
-                <div className="relative h-80 sm:h-[400px] overflow-hidden bg-[#F0EBE0] dark:bg-[#0A120E]">
-                  {activeSlides.length > 0 ? (
-                    <>
+              <div className="arch-frame relative isolate aspect-[4/5]">
+              <div className="absolute inset-0 shine overflow-hidden rounded-t-[999px] rounded-b-3xl bg-forest-800 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)] ring-1 ring-white/20">
+                {activeSlides.length > 0 ? (
+                  <>
+                    {activeSlides.map((s, i) => (
                       <img
-                        loading="lazy"
-                        src={activeSlides[currentSlide]?.image}
-                        alt={activeSlides[currentSlide]?.title || 'St. Teresa Gatura Girls'}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                        key={s.id || `${s.image}-${i}`}
+                        src={s.image}
+                        alt={i === currentSlide ? s.title || 'St. Teresa Gatura Girls' : ''}
+                        aria-hidden={i !== currentSlide}
+                        loading={i === 0 ? 'eager' : 'lazy'}
+                        className={`slide-image absolute inset-0 h-full w-full object-cover ${
+                          i === currentSlide ? 'is-active' : ''
+                        }`}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent" />
+                    ))}
+                    <div className="absolute inset-0 bg-gradient-to-t from-forest-950/90 via-forest-950/10 to-transparent" />
 
-                      <div className="absolute top-3 left-3 bg-emerald-700 text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-sm">
-                        {activeSlides[currentSlide]?.tag || 'Senior School'}
+                    <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 space-y-3">
+                      <span className="inline-block rounded-full bg-gold-500 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-forest-950">
+                        {slide?.tag || 'Senior School'}
+                      </span>
+                      <div key={currentSlide} className="space-y-1 animate-[hero-rise_700ms_ease-out_both]">
+                        <p className="font-display text-xl font-semibold leading-snug">
+                          {slide?.title || 'Life at St. Teresa Gatura'}
+                        </p>
+                        {slide?.subtitle && (
+                          <p className="text-xs text-white/70 line-clamp-2">{slide.subtitle}</p>
+                        )}
                       </div>
 
                       {activeSlides.length > 1 && (
-                        <span className="absolute top-3 right-3 font-mono text-[10px] text-white/80 tabular-nums bg-black/30 px-1.5 py-0.5 rounded-sm">
-                          {String(currentSlide + 1).padStart(2, '0')}/{String(activeSlides.length).padStart(2, '0')}
-                        </span>
+                        <div className="flex items-center justify-between pt-2">
+                          <div className="flex items-center gap-1.5">
+                            {activeSlides.map((_, idx) => (
+                              <button
+                                key={idx}
+                                onClick={() => setCurrentSlide(idx)}
+                                className={`h-1.5 rounded-full transition-all duration-500 ${
+                                  currentSlide === idx ? 'w-7 bg-gold-400' : 'w-1.5 bg-white/40 hover:bg-white/70'
+                                }`}
+                                aria-label={`Go to photo ${idx + 1}`}
+                              />
+                            ))}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={prevSlide}
+                              className="p-2 rounded-full border border-white/25 text-white hover:bg-gold-500 hover:border-gold-500 hover:text-forest-950 transition-colors"
+                              aria-label="Previous photo"
+                            >
+                              <ChevronLeft className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={nextSlide}
+                              className="p-2 rounded-full border border-white/25 text-white hover:bg-gold-500 hover:border-gold-500 hover:text-forest-950 transition-colors"
+                              aria-label="Next photo"
+                            >
+                              <ChevronRight className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
                       )}
-                    </>
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-3">
-                      <div className="w-14 h-14 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
-                        <Award className="w-7 h-7" />
-                      </div>
-                      <h3 className="font-bold text-lg">St. Teresa Gatura Girls</h3>
-                      <p className="text-xs text-[#5B5346] dark:text-[#A8A196] max-w-xs">
-                        Empowering young women through academic excellence, moral integrity, and leadership.
-                      </p>
                     </div>
-                  )}
-
-                  {activeSlides.length > 1 && (
-                    <>
-                      <button
-                        onClick={prevSlide}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/85 dark:bg-black/50 text-[#161311] dark:text-white hover:bg-emerald-600 hover:text-white transition-colors"
-                        aria-label="Previous photo"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={nextSlide}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/85 dark:bg-black/50 text-[#161311] dark:text-white hover:bg-emerald-600 hover:text-white transition-colors"
-                        aria-label="Next photo"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </>
-                  )}
-                </div>
-
-                {/* Caption, like handwriting under a printed photo */}
-                <div className="px-1 pt-3 flex items-center justify-between">
-                  <div className="min-w-0 pr-2">
-                    <p className="font-semibold text-sm truncate">
-                      {activeSlides[currentSlide]?.title || 'Life at St. Teresa Gatura'}
-                    </p>
-                    <p className="text-[11px] text-[#8A8478] dark:text-[#6B7280] line-clamp-1">
-                      {activeSlides[currentSlide]?.subtitle}
+                  </>
+                ) : (
+                  <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center space-y-3">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gold-500/15 text-gold-300">
+                      <Award className="w-7 h-7" />
+                    </div>
+                    <h3 className="font-display text-xl font-semibold">St. Teresa Gatura Girls</h3>
+                    <p className="max-w-xs text-xs text-white/70">
+                      Empowering young women through academic excellence, moral integrity, and leadership.
                     </p>
                   </div>
-                  {activeSlides.length > 1 && (
-                    <div className="flex items-center gap-1 shrink-0">
-                      {activeSlides.map((_, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setCurrentSlide(idx)}
-                          className={`rounded-full transition-all ${
-                            currentSlide === idx
-                              ? 'w-4 h-1.5 bg-emerald-600'
-                              : 'w-1.5 h-1.5 bg-[#D8D0C2] dark:bg-[#232839]'
-                          }`}
-                          aria-label={`Go to photo ${idx + 1}`}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
+                )}
+              </div>
               </div>
 
-              {/* Rubber-stamp style badge */}
-              <div className="absolute -bottom-2 -left-6 hidden sm:flex items-center justify-center w-24 h-24 rounded-full bg-[#FAF7F2] dark:bg-[#080D0B] border-2 border-emerald-700/70 dark:border-emerald-500/60 rotate-[-12deg] shadow-md">
-                <div className="text-center leading-none">
-                  <Award className="w-5 h-5 text-emerald-700 dark:text-emerald-400 mx-auto mb-1" />
-                  <p className="text-[8px] font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-400">
-                    Top Exam
-                  </p>
-                  <p className="text-[8px] font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-400">
-                    Performance
-                  </p>
+              {/* 50 years medallion */}
+              <div className="float-soft shine absolute -left-4 top-14 sm:-left-10 sm:top-16 flex h-24 w-24 sm:h-32 sm:w-32 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-forest-700 to-forest-900 shadow-2xl shadow-black/30 ring-1 ring-gold-300/60">
+                <svg viewBox="0 0 120 120" className="spin-slow absolute inset-1.5 h-[calc(100%-0.75rem)] w-[calc(100%-0.75rem)]" aria-hidden="true">
+                  <defs>
+                    <path id="medallion-ring" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0" />
+                  </defs>
+                  <text className="fill-gold-300" fontSize="9.5" fontWeight="700" letterSpacing="3.2">
+                    <textPath href="#medallion-ring">INVEST IN KNOWLEDGE • 1976 — 2026 •</textPath>
+                  </text>
+                </svg>
+                <div className="relative text-center leading-none">
+                  <p className="font-display text-3xl sm:text-4xl font-semibold text-gold-300">50</p>
+                  <p className="mt-0.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.25em] text-white/80">Years</p>
                 </div>
               </div>
 
             </div>
           </div>
-
         </div>
       </div>
     </section>

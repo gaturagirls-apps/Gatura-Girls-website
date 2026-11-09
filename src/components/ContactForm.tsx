@@ -59,18 +59,19 @@ export const ContactForm: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white transition-colors relative">
+    <section id="contact" className="surface-base py-24 transition-colors relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-slate-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
+          <div className="eyebrow">
             <Mail className="w-4 h-4" />
             <span>Connect With Us</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
-            Get in Touch With Administration
+          <h2 className="section-title">
+            Get in Touch With <em>Administration</em>
           </h2>
+          <span className="section-rule" aria-hidden="true" />
           <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg font-light">
             We welcome inquiries from prospective parents, students, alumni, and stakeholders.
           </p>

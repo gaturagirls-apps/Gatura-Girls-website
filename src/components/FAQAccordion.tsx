@@ -15,7 +15,7 @@ import {
   Award,
   ArrowRight,
   X,
-  Palette,
+  Calculator,
   Users
 } from 'lucide-react';
 import {
@@ -86,8 +86,8 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
 
   // Counts for tabs
   const stemCount = APPROVED_COMBINATIONS.filter(c => c.pathway === 'STEM').length;
-  const artsCount = APPROVED_COMBINATIONS.filter(c => c.pathway === 'ARTS & SPORTS SCIENCE').length;
   const socialCount = APPROVED_COMBINATIONS.filter(c => c.pathway === 'SOCIAL SCIENCES').length;
+  const pathwayCount = Object.keys(PATHWAY_METADATA).length;
 
   const handleApplyCombo = (_code: string) => {
     const elem = document.getElementById('contact');
@@ -97,7 +97,7 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
   };
 
   return (
-    <section id="about" className="py-20 bg-slate-50/70 dark:bg-slate-950 text-slate-900 dark:text-white transition-colors relative">
+    <section id="about" className="surface-base py-24 transition-colors relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* ======================================================== */}
@@ -106,13 +106,14 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
         <div className="mb-20 space-y-12">
           
           <div className="text-center max-w-3xl mx-auto space-y-4">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-slate-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
+            <div className="eyebrow">
               <BookOpen className="w-4 h-4" />
               <span>Academic Curriculum & Senior Secondary</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              A Beacon of Girls' Education in Kenya
+            <h2 className="section-title">
+              A Beacon of Girls' <em>Education</em> in Kenya
             </h2>
+            <span className="section-rule" aria-hidden="true" />
             <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg font-light leading-relaxed">
               Founded on Christian foundation principles, St. Teresa Gatura Girls Senior School provides a transformative academic environment where young women excel in sciences, humanities, leadership, and moral discipline.
             </p>
@@ -133,7 +134,7 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
                 </div>
                 <div>
                   <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">CBC Senior Secondary Pathways</h3>
-                  <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide">3 Approved Pathways • {APPROVED_COMBINATIONS.length} Combinations</p>
+                  <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide">{pathwayCount} Approved Pathways • {APPROVED_COMBINATIONS.length} Combinations</p>
                 </div>
               </div>
 
@@ -144,15 +145,11 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
               <ul className="space-y-2.5 text-sm text-slate-700 dark:text-slate-200">
                 <li className="flex items-start space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>STEM Pathway:</strong> 8 Approved Pure Sciences & Applied Sciences combinations.</span>
+                  <span><strong>STEM Pathway:</strong> {stemCount} Approved Pure Sciences & Applied Sciences combinations, taking <strong>Advanced Mathematics</strong>.</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>Social Sciences Pathway:</strong> 11 Approved Humanities, Business Studies & Languages combinations.</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>Arts & Sports Science Pathway:</strong> 2 Approved Sports & Creative Arts combinations.</span>
+                  <span><strong>Social Sciences Pathway:</strong> {socialCount} Approved Humanities, Business Studies & Languages combinations, taking <strong>Essential Mathematics</strong>.</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
@@ -180,7 +177,7 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
               <ul className="space-y-2.5 text-sm text-slate-700 dark:text-slate-200">
                 <li className="flex items-start space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>Mathematics & Languages:</strong> Mathematics (Core/Advanced), English, Kiswahili.</span>
+                  <span><strong>Mathematics & Languages:</strong> Mathematics (Advanced for STEM, Essential for Social Sciences), English, Kiswahili.</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
@@ -225,7 +222,7 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
               {/* Accreditation Stats Pills */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 shrink-0">
                 <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 text-center">
-                  <p className="text-xl font-black text-emerald-700 dark:text-emerald-400">3</p>
+                  <p className="text-xl font-black text-emerald-700 dark:text-emerald-400">{pathwayCount}</p>
                   <p className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Pathways</p>
                 </div>
                 <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 text-center">
@@ -267,6 +264,25 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
                   </span>
                 ))}
               </div>
+
+              {/* Mathematics is taken at the level of the chosen pathway */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                {(Object.values(PATHWAY_METADATA)).map((meta) => (
+                  <div
+                    key={meta.id}
+                    className={`flex items-start gap-3 rounded-xl border p-3 ${meta.accentBg} ${meta.borderColor}`}
+                  >
+                    <Calculator className="mt-0.5 h-4 w-4 shrink-0 text-slate-700 dark:text-slate-200" />
+                    <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                      <strong className="text-slate-900 dark:text-white">{meta.mathematics}</strong>
+                      {' '}for the <strong>{meta.shortName}</strong> pathway.
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                After the core subjects, each learner chooses <strong>3 subjects</strong> from the combinations approved for her pathway.
+              </p>
             </div>
 
             {/* Filter and View Controls Toolbar */}
@@ -306,17 +322,6 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
                   >
                     <BookOpen className="w-3.5 h-3.5" />
                     <span>Social Sciences ({socialCount})</span>
-                  </button>
-                  <button
-                    onClick={() => { setSelectedPathway('ARTS & SPORTS SCIENCE'); setSelectedTrack('ALL'); }}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
-                      selectedPathway === 'ARTS & SPORTS SCIENCE'
-                        ? 'bg-orange-600 text-white shadow-xs'
-                        : 'text-slate-600 dark:text-slate-400 hover:text-orange-700 dark:hover:text-orange-400'
-                    }`}
-                  >
-                    <Palette className="w-3.5 h-3.5" />
-                    <span>Arts & Sports ({artsCount})</span>
                   </button>
                 </div>
 
@@ -435,8 +440,7 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
                   <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
                     {filteredCombinations.map((combo) => {
                       const isStem = combo.pathway === 'STEM';
-                      const isArts = combo.pathway === 'ARTS & SPORTS SCIENCE';
-                      const isSocial = combo.pathway === 'SOCIAL SCIENCES';
+                      const maths = PATHWAY_METADATA[combo.pathway].mathematics;
 
                       return (
                         <tr
@@ -448,10 +452,8 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
                             <span
                               className={`inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold ${
                                 isStem
-                                  ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'
-                                  : isArts
-                                  ? 'bg-orange-100 text-orange-800 dark:bg-orange-950/60 dark:text-orange-300'
-                                  : 'bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300'
+                                  ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300'
+                                  : 'bg-blue-100 text-blue-800 dark:bg-blue-500/15 dark:text-blue-300'
                               }`}
                             >
                               {combo.pathway}
@@ -468,6 +470,10 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
                           {/* Subjects Column */}
                           <td className="py-3.5 px-4 text-slate-900 dark:text-slate-100 font-medium">
                             <div className="flex flex-wrap items-center gap-1.5">
+                              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg border border-dashed border-slate-300 dark:border-slate-600 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
+                                <Calculator className="w-3 h-3" />
+                                {maths}
+                              </span>
                               {combo.subjects.map((subj, idx) => (
                                 <span
                                   key={idx}
@@ -525,19 +531,15 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredCombinations.map((combo) => {
                   const isStem = combo.pathway === 'STEM';
-                  const isArts = combo.pathway === 'ARTS & SPORTS SCIENCE';
+                  const maths = PATHWAY_METADATA[combo.pathway].mathematics;
 
                   const borderColor = isStem 
                     ? 'border-emerald-500/30 hover:border-emerald-500' 
-                    : isArts 
-                    ? 'border-orange-500/30 hover:border-orange-500' 
                     : 'border-blue-500/30 hover:border-blue-500';
 
                   const badgeColor = isStem
-                    ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'
-                    : isArts
-                    ? 'bg-orange-100 text-orange-800 dark:bg-orange-950/60 dark:text-orange-300'
-                    : 'bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300';
+                    ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300'
+                    : 'bg-blue-100 text-blue-800 dark:bg-blue-500/15 dark:text-blue-300';
 
                   return (
                     <div
@@ -564,12 +566,16 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqs }) => {
                           <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 font-mono mt-1">
                             Track: {combo.track}
                           </p>
+                          <p className="mt-1.5 inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
+                            <Calculator className="w-3 h-3" />
+                            {maths} (core)
+                          </p>
                         </div>
 
                         {/* Subject chips */}
                         <div className="space-y-1.5 pt-1">
                           <p className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                            3 Required Subjects:
+                            Choose 3 Subjects:
                           </p>
                           <div className="flex flex-wrap gap-1.5">
                             {combo.subjects.map((subj, idx) => (

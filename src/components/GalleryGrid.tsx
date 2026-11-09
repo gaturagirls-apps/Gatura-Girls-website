@@ -53,7 +53,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ gallery }) => {
   };
 
   return (
-    <section id="gallery" className="py-20 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white relative overflow-hidden transition-colors">
+    <section id="gallery" className="surface-alt py-24 relative overflow-hidden transition-colors">
       
       {/* Background Decorative */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -translate-x-1/2" />
@@ -63,13 +63,14 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ gallery }) => {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-slate-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
+          <div className="eyebrow">
             <ImageIcon className="w-4 h-4" />
             <span>Campus Life</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
-            Photo <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 dark:from-emerald-400 dark:to-teal-300">Gallery</span>
+          <h2 className="section-title">
+            Photo <em>Gallery</em>
           </h2>
+          <span className="section-rule" aria-hidden="true" />
           <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
             Experience the vibrant life, state-of-the-art facilities, and defining moments at St. Teresa Gatura Girls.
           </p>

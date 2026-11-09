@@ -40,13 +40,13 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({ banners }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="rounded-2xl overflow-hidden bg-white dark:bg-[#0F1811] border border-[#E5DFD2] dark:border-[#1E2A24] shadow-sm">
+      <div className="rounded-3xl overflow-hidden bg-white dark:bg-slate-900 border border-[#E5DFD2] dark:border-slate-700 shadow-xl shadow-forest-900/10">
         <div className="grid grid-cols-1 md:grid-cols-12">
 
           {/* Text Panel — solid background, always legible regardless of image */}
           <div className="md:col-span-5 flex flex-col justify-between p-6 sm:p-8 gap-6 order-2 md:order-1">
             <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-[11px] font-bold uppercase tracking-wider">
+              <div className="eyebrow">
                 <Megaphone className="w-3.5 h-3.5" />
                 <span>Announcement</span>
               </div>
@@ -64,7 +64,7 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({ banners }) => {
               {currentBanner.ctaText && (
                 <button
                   onClick={handleCtaClick}
-                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm shadow-sm shadow-emerald-700/20 transition-all"
+                  className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-forest-800 hover:bg-forest-700 text-white font-semibold text-sm shadow-lg shadow-forest-900/20 transition-all hover:-translate-y-0.5"
                 >
                   <span>{currentBanner.ctaText}</span>
                   <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -76,14 +76,14 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({ banners }) => {
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => setCurrentIndex((prev) => (prev - 1 + activeBanners.length) % activeBanners.length)}
-                      className="p-1.5 rounded-full border border-[#D8D0C2] dark:border-[#232839] text-[#5B5346] dark:text-[#A8A196] hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                      className="p-1.5 rounded-full border border-[#D8D0C2] dark:border-slate-700 text-[#5B5346] dark:text-[#A8A196] hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                       aria-label="Previous announcement"
                     >
                       <ChevronLeft className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => setCurrentIndex((prev) => (prev + 1) % activeBanners.length)}
-                      className="p-1.5 rounded-full border border-[#D8D0C2] dark:border-[#232839] text-[#5B5346] dark:text-[#A8A196] hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                      className="p-1.5 rounded-full border border-[#D8D0C2] dark:border-slate-700 text-[#5B5346] dark:text-[#A8A196] hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                       aria-label="Next announcement"
                     >
                       <ChevronRight className="w-3.5 h-3.5" />
@@ -95,13 +95,13 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({ banners }) => {
                       <button
                         key={i}
                         onClick={() => setCurrentIndex(i)}
-                        className="relative h-[3px] flex-1 rounded-full bg-[#E5DFD2] dark:bg-[#232839] overflow-hidden"
+                        className="relative h-[3px] flex-1 rounded-full bg-[#E5DFD2] dark:bg-slate-700 overflow-hidden"
                         aria-label={`Go to announcement ${i + 1}`}
                       >
                         {i === currentIndex && (
                           <span
                             key={currentIndex}
-                            className="absolute inset-y-0 left-0 bg-emerald-600 rounded-full animate-[fillbar_6s_linear]"
+                            className="absolute inset-y-0 left-0 bg-gold-500 rounded-full animate-[fillbar_6s_linear]"
                             style={{ animationFillMode: 'forwards' }}
                           />
                         )}
@@ -118,7 +118,7 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({ banners }) => {
           </div>
 
           {/* Image Panel — letterboxed so the source image is never cropped or zoomed */}
-          <div className="md:col-span-7 relative h-[220px] sm:h-[300px] md:h-[380px] order-1 md:order-2 bg-[#F0EBE0] dark:bg-[#080B12] overflow-hidden">
+          <div className="md:col-span-7 relative h-[220px] sm:h-[300px] md:h-[380px] order-1 md:order-2 bg-[#F0EBE0] dark:bg-slate-950 overflow-hidden">
             {/* ambient backdrop, blurred + scaled copy of the same image so there's no dead space */}
             <img
               loading="lazy"
@@ -127,7 +127,7 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({ banners }) => {
               aria-hidden="true"
               className="absolute inset-0 w-full h-full object-cover scale-125 blur-2xl opacity-40 dark:opacity-30 transition-all duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-white/40 dark:from-[#080B12]/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white/40 dark:from-slate-950/60 to-transparent" />
 
             {/* true image, fully contained — preserves its real aspect ratio */}
             <div className="relative z-10 w-full h-full flex items-center justify-center p-4 sm:p-6">
