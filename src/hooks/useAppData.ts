@@ -25,15 +25,33 @@ export interface AppData {
 }
 
 const CACHE_TTL: Record<string, number> = {
-  news: 10 * 60 * 1000, // 10 minutes
-  jobs: 60 * 60 * 1000, // 1 hour
-  banners: 30 * 60 * 1000, // 30 minutes
-  gallery: 60 * 60 * 1000, // 1 hour
+  news: 30 * 60 * 1000, // 30 minutes
+  jobs: 2 * 60 * 60 * 1000, // 2 hours
+  banners: 60 * 60 * 1000, // 1 hour
+  gallery: 6 * 60 * 60 * 1000, // 6 hours
   leadership: 24 * 60 * 60 * 1000, // 24 hours
-  heroSlides: 30 * 60 * 1000, // 30 minutes
+  heroSlides: 2 * 60 * 60 * 1000, // 2 hours
   featured_videos: 24 * 60 * 60 * 1000, // 24 hours
   messages: 5 * 60 * 1000, // 5 minutes
 };
+
+// After a failed read (e.g. quota exceeded) stop hitting Firestore for a while and serve cached data
+const FAILURE_BACKOFF_MS = 15 * 60 * 1000;
+const BACKOFF_KEY = 'st_teresa_fetch_backoff_until';
+
+function inBackoff(): boolean {
+  try {
+    return Number(localStorage.getItem(BACKOFF_KEY) || 0) > Date.now();
+  } catch (e) {
+    return false;
+  }
+}
+
+function startBackoff() {
+  try {
+    localStorage.setItem(BACKOFF_KEY, String(Date.now() + FAILURE_BACKOFF_MS));
+  } catch (e) {}
+}
 
 // We store cache with timestamp
 interface CacheEntry<T> {
@@ -71,6 +89,10 @@ export function useAppData() {
 
       for (const [key, colName] of Object.entries(collectionsMap)) {
         const typedKey = key as keyof AppData;
+
+        // Contact messages are admin-only: visitors must not download them on every page load
+        if (typedKey === 'messages' && !force) continue;
+        if (!force && inBackoff()) continue;
         
         const cacheEntry = loadCacheEntry<any>(typedKey);
         const isStale = !cacheEntry || (now - cacheEntry.timestamp > (CACHE_TTL[colName] || 0));
@@ -100,6 +122,7 @@ export function useAppData() {
               return { key: typedKey, data: items };
             }).catch(err => {
               console.warn(`Failed to fetch ${colName}:`, err);
+              startBackoff();
               return { key: typedKey, data: null };
             })
           );

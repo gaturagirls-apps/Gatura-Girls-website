@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  GraduationCap,
   Moon,
   Sun,
   Menu,
@@ -130,9 +129,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             aria-label="St. Teresa Gatura Girls - go to home section"
             className="flex items-center gap-3 cursor-pointer group rounded-lg shrink-0"
           >
-            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-gold-300 to-gold-500 flex items-center justify-center text-forest-950 shadow-lg shadow-gold-500/25 ring-2 ring-white/10 transition-transform duration-500 group-hover:rotate-[-8deg] group-hover:scale-105">
-              <GraduationCap className="w-5 h-5" />
-            </div>
+            <img
+              src="/logo.png"
+              alt=""
+              width={360}
+              height={420}
+              className="h-12 w-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)] transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3"
+            />
             <div className="flex flex-col leading-tight">
               <span
                 className={`font-display text-lg font-semibold tracking-tight transition-colors duration-300 ${

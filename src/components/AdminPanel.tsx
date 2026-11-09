@@ -162,7 +162,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     if (isOpen) {
       onRefreshData(true);
     }
-  }, [isOpen, onRefreshData]);
+    // onRefreshData is a new function every render; depending on it re-triggered a forced refetch in a loop
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

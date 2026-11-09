@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  GraduationCap,
   MapPin,
   Phone,
   Mail,
@@ -38,9 +37,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
           {/* School identity */}
           <div className="lg:col-span-5 space-y-6">
             <div className="flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-gold-300 to-gold-500 text-forest-950 shadow-lg shadow-gold-500/20">
-                <GraduationCap className="w-6 h-6" />
-              </div>
+              <img
+                src="/logo.png"
+                alt="St. Teresa Gatura Girls Senior School logo"
+                width={360}
+                height={420}
+                loading="lazy"
+                className="h-20 w-auto drop-shadow-[0_6px_14px_rgba(0,0,0,0.4)]"
+              />
               <div>
                 <h3 className="font-display text-2xl font-semibold tracking-tight">St. Teresa Gatura Girls</h3>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-400">
