@@ -90,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const getLinkClasses = (isActive: boolean) => {
     const base =
-      'relative whitespace-nowrap px-3.5 py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 after:absolute after:inset-x-3.5 after:-bottom-0.5 after:h-px after:origin-left after:bg-gold-500 after:transition-transform after:duration-500 after:ease-out';
+      'relative whitespace-nowrap px-2.5 xl:px-3.5 py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 after:absolute after:inset-x-2.5 xl:after:inset-x-3.5 after:-bottom-0.5 after:h-px after:origin-left after:bg-gold-500 after:transition-transform after:duration-500 after:ease-out';
     const tone = onHero
       ? 'text-white/75 hover:text-white'
       : 'text-[#3d382f] hover:text-forest-700 dark:text-[#cfc9bc] dark:hover:text-white';
@@ -152,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop Navigation */}
-          <nav aria-label="Primary" className="hidden xl:flex items-center">
+          <nav aria-label="Primary" className="hidden lg:flex items-center">
             {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.id;
               return (
@@ -169,10 +169,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Desktop Actions */}
-          <div className="hidden xl:flex items-center gap-3 shrink-0">
+          <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gold-500 hover:bg-gold-400 text-forest-950 font-semibold text-sm shadow-lg shadow-gold-500/25 transition-all duration-300 hover:-translate-y-0.5"
+              className="group hidden xl:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gold-500 hover:bg-gold-400 text-forest-950 font-semibold text-sm shadow-lg shadow-gold-500/25 transition-all duration-300 hover:-translate-y-0.5"
             >
               <PhoneCall className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" />
               <span>Contact Us</span>
@@ -197,7 +197,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Mobile controls */}
-          <div className="flex xl:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={() => setDarkMode((prev) => !prev)}
               aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -221,7 +221,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile drawer */}
       {mobileMenuOpen && (
-        <div id="mobile-nav-drawer" className="xl:hidden px-4 pb-6 pt-4">
+        <div id="mobile-nav-drawer" className="lg:hidden px-4 pb-6 pt-4">
           <div className="rounded-3xl p-5 border border-[#e5dfd2] dark:border-slate-700 bg-white/90 dark:bg-forest-900/90 backdrop-blur-2xl shadow-xl text-[#14120f] dark:text-[#f3f0e9] space-y-4 animate-[hero-rise_500ms_ease-out_both]">
             <nav aria-label="Mobile primary" className="grid grid-cols-1 gap-1">
               {NAV_LINKS.map((link) => {
